@@ -27,4 +27,6 @@ a {
   height: 50px;
   background: #5a1a77;
   color: white;
+  align-items: center;
+  padding: 0 1%;
 }
