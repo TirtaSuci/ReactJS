@@ -1,19 +1,11 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import ProductView from "@/view/product";
+import DetailProductPage from "@/view/product/[product]";
 
 const ProductPage = () => {
-    const [isLogin,setisLogin] = useState(true);
-    const { push } = useRouter();
-
-    useEffect(() => {
-        if (!isLogin) {
-            push("/auth/login");
-        }
-    },[]);
-
     return (
         <div>
-            <h1>Product Page</h1>
+            <ProductView></ProductView>
+            <DetailProductPage></DetailProductPage>
         </div>
     );
 };
