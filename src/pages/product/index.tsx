@@ -5,7 +5,7 @@ const ProductPage = () => {
     return (
         <div>
             <ProductView></ProductView>
-            <DetailProductPage></DetailProductPage>
+            {/* <DetailProductPage></DetailProductPage> */}
         </div>
     );
 };

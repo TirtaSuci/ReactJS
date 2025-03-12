@@ -1,0 +1,18 @@
+.error {
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    &__font{
+        font-size: 50px;
+    }
+    &__image{
+        width: 400px;
+    }
+}
+
