@@ -1,37 +1,38 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import styles from "./product.module.scss";
 
-type productType = {
-    id: number;
+type ProductType = {
+    id: string;
     name: string;
+    image: string;
     price: number;
-    size: string;
+    category: string;
 };
 
-const ProductView = () => {
-    const [isLogin, setisLogin] = useState(true);
-    const { push } = useRouter();
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        if (!isLogin) {
-            push("/auth/login");
-        }
-    }, []);
-
-    useEffect(() => {
-        fetch("api/products")
-            .then((res) => res.json())
-            .then((data) => {
-                setProducts(data.data);
-            });
-    },[]);
+const ProductView = ({ products }: { products: ProductType[] }) => {
     return (
-        <div>
-            <h1>Product Page</h1>
-            {products.map((products: productType) => (
-                <div key={products.id}>{products.name}</div>
-            ))}
+        <div className={styles.product}>
+            <h1 className={styles.product__title}>Product Page</h1>
+            <div className={styles.product__content}>
+                {products.map((product: ProductType) => (
+                    <div key={product.id} className={styles.product__content__item}>
+                        <div className={styles.product__content__item__image}>
+                            <img src={product.image} alt={product.image} />
+                        </div>
+                        <div className={styles.product__content__item__name}>
+                            {product.name}
+                        </div>
+                        <div className={styles.product__content__item__category}>
+                            {product.category}
+                        </div>
+                        <div className={styles.product__content__item__price}>
+                            {product.price.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
