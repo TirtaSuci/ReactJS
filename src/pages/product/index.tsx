@@ -19,6 +19,9 @@ const ProductPage = () => {
         "/api/products",
         fetcher
     );
+    console.log("data =", data);
+    console.log("error =", error);
+    console.log("isLoading =", isLoading);
 
     useEffect(() => {
         fetch("api/products")

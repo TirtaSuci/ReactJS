@@ -13,25 +13,36 @@ const ProductView = ({ products }: { products: ProductType[] }) => {
         <div className={styles.product}>
             <h1 className={styles.product__title}>Product Page</h1>
             <div className={styles.product__content}>
-                {products.map((product: ProductType) => (
-                    <div key={product.id} className={styles.product__content__item}>
-                        <div className={styles.product__content__item__image}>
-                            <img src={product.image} alt={product.image} />
-                        </div>
-                        <div className={styles.product__content__item__name}>
-                            {product.name}
-                        </div>
-                        <div className={styles.product__content__item__category}>
-                            {product.category}
-                        </div>
-                        <div className={styles.product__content__item__price}>
-                            {product.price.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                            })}
-                        </div>
+                {products.length > 0 ? (
+                    <>
+                        {products.map((product: ProductType) => (
+                            <div key={product.id} className={styles.product__content__item}>
+                                <div className={styles.product__content__item__image}>
+                                    <img src={product.image} alt={product.image} />
+                                </div>
+                                <div className={styles.product__content__item__name}>
+                                    {product.name}
+                                </div>
+                                <div className={styles.product__content__item__category}>
+                                    {product.category}
+                                </div>
+                                <div className={styles.product__content__item__price}>
+                                    {product.price.toLocaleString("id-ID", {
+                                        style: "currency",
+                                        currency: "IDR",
+                                    })}
+                                </div>
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    <div className={styles.product__content__skeleton}>
+                        <div className={styles.product__content__skeleton__image} />
+                        <div className={styles.product__content__skeleton__name} />
+                        <div className={styles.product__content__skeleton__category} />
+                        <div className={styles.product__content__skeleton__price} />
                     </div>
-                ))}
+                )}
             </div>
         </div>
     );
