@@ -15,6 +15,7 @@ export async function getStaticProps() {
     const res = await fetch('http://localhost:3000/api/products');
     const respose = await res.json();
     return {
-        props: { products: respose.data, }
+        props: { products: respose.data, },
+        revalidate: 10
     };
 }

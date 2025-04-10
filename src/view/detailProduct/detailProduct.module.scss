@@ -21,4 +21,38 @@
         font-weight: bold;
         margin-top: 5px;
     }
+
+    &__skeleton {
+        width: 25%;
+        padding: 1%;
+        animation: blinking 1s infinite;
+
+        &__image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: gray;
+        }
+
+        &__name {
+            width: 100%;
+            height: 16px;
+            margin-top: 5px;
+            background-color: gray;
+        }
+
+        &__category {
+            width: 100%;
+            height: 16px;
+            margin-top: 5px;
+            background-color: gray;
+        }
+
+        &__price {
+            width: 100%;
+            height: 16px;
+            margin-top: 10px;
+            background-color: gray;
+        }
+    }
+
 }
