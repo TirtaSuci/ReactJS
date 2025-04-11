@@ -1,0 +1,70 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    &__title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #5a1a77;
+    }
+
+    &__form {
+        width: 20%;
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgb(112, 112, 112);
+            border-radius: 5px;
+
+            &__input {
+                border: 2px solid #aaaaaa;
+                border-radius: 5px;
+            }
+
+            &__button {
+                margin-top: 10px;
+                background-color: #505050;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 5px;
+                cursor: pointer;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                -ms-border-radius: 5px;
+                -o-border-radius: 5px;
+            }
+        }
+
+        &__login {
+            margin-top: 20px;
+            text-align: center;
+
+            &__link {
+                text-decoration: none;
+                color: dodgerblue;
+            }
+        }
+
+        &__error {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        &__success {
+            color: green;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    }
+}
