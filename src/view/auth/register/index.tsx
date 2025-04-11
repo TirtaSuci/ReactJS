@@ -1,6 +1,6 @@
 import Link from "next/link";
 import style from "./register.module.scss";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useRouter } from "next/router";
 
 const RegisterView = () => {
@@ -8,6 +8,8 @@ const RegisterView = () => {
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const { push } = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -21,6 +23,14 @@ const RegisterView = () => {
             password: event.target.password.value,
         };
 
+        if (event.target.password.value !== event.target.confirmPassword.value) {
+            setError("Passwords do not match.");
+            event.target.password.value = "";
+            event.target.confirmPassword.value = "";
+            setIsLoading(false);
+            return;
+        }
+
         const result = await fetch("/api/register", {
             method: "POST",
             headers: {
@@ -28,6 +38,8 @@ const RegisterView = () => {
             },
             body: JSON.stringify(data),
         });
+
+        const responseData = await result.json();
 
         if (result.status === 200) {
             event.target.reset();
@@ -40,11 +52,16 @@ const RegisterView = () => {
             }, 2000);
         } else {
             setIsLoading(false);
-            setError(
-                result.status === 400
-                    ? "Email already in use."
-                    : "Something went wrong. Please try again."
-            );
+            if (result.status === 400) {
+                event.target.reset();
+                if (responseData.message === "Email already in use") {
+                    setError("Email already in use.");
+                } else if (responseData.message === "Username already in use") {
+                    setError("Username already in use.");
+                } else {
+                    setError(responseData.message || "Invalid input.");
+                }
+            }
         }
     };
 
@@ -74,13 +91,40 @@ const RegisterView = () => {
                         required
                     />
                     <label htmlFor="password">Password</label>
-                    <input
-                        className={style.register__form__content__input}
-                        type="password"
-                        name="password"
-                        id="password"
-                        required
-                    />
+                    <div className={style.passwordWrapper}>
+                        <input
+                            className={style.inputWithToggle}
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            id="password"
+                            required
+                        />
+                        <button
+                            type="button"
+                            className={style.togglePassword}
+                            onClick={() => setShowPassword((prev) => !prev)}
+                        >
+                            {showPassword ? "🙈" : "👁️"}
+                        </button>
+                    </div>
+
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <div className={style.passwordWrapper}>
+                        <input
+                            className={style.inputWithToggle}
+                            type={showConfirmPassword ? "text" : "password"}
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            required
+                        />
+                        <button
+                            type="button"
+                            className={style.togglePassword}
+                            onClick={() => setShowConfirmPassword((prev) => !prev)}
+                        >
+                            {showConfirmPassword ? "🙈" : "👁️"}
+                        </button>
+                    </div>
                     <button
                         className={style.register__form__content__button}
                         type="submit"
