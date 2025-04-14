@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register Page should render correctly 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="register"
+    >
+      <p
+        class="register__title"
+      >
+        Register Page
+      </p>
+      <div
+        class="register__form"
+      >
+        <form
+          class="register__form__content"
+        >
+          <label
+            for="username"
+          >
+            Username
+          </label>
+          <input
+            class="register__form__content__input"
+            id="username"
+            name="username"
+            required=""
+            type="text"
+          />
+          <label
+            for="email"
+          >
+            Email
+          </label>
+          <input
+            class="register__form__content__input"
+            id="email"
+            name="email"
+            required=""
+            type="email"
+          />
+          <label
+            for="password"
+          >
+            Password
+          </label>
+          <div
+            class="passwordWrapper"
+          >
+            <input
+              class="inputWithToggle"
+              id="password"
+              name="password"
+              required=""
+              type="password"
+            />
+            <button
+              class="togglePassword"
+              type="button"
+            >
+              👁️
+            </button>
+          </div>
+          <label
+            for="confirmPassword"
+          >
+            Confirm Password
+          </label>
+          <div
+            class="passwordWrapper"
+          >
+            <input
+              class="inputWithToggle"
+              id="confirmPassword"
+              name="confirmPassword"
+              required=""
+              type="password"
+            />
+            <button
+              class="togglePassword"
+              type="button"
+            >
+              👁️
+            </button>
+          </div>
+          <button
+            class="register__form__content__button"
+            type="submit"
+          >
+            Register
+          </button>
+        </form>
+        <p
+          class="register__form__login"
+        >
+          Sudah punya akun? 
+          <a
+            class="register__form__login__link"
+            href="/auth/login"
+          >
+            Login disini
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

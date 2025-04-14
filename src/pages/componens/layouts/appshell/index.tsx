@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { Roboto } from "next/font/google";
 
 // Hindari SSR pada Navbar jika perlu (opsional, untuk menghindari build error)
 const Navbar = dynamic(() => import("../navbar"), { ssr: false });
@@ -7,6 +8,11 @@ const Navbar = dynamic(() => import("../navbar"), { ssr: false });
 type AppShellProps = {
     children: React.ReactNode;
 };
+
+const roboto = Roboto({
+    subsets: ["latin"],
+    weight: ["400",],
+})
 
 const disableNavbar = ["/auth/login", "/auth/register", "/404"];
 
@@ -31,12 +37,12 @@ const AppShell = ({ children }: AppShellProps) => {
     const navbarInfo = getNavbarInfo(pathname);
 
     return (
-        <div>
+        <main className={roboto.className}>
             {!disableNavbar.includes(pathname) && (
                 <Navbar title={navbarInfo.title} link={navbarInfo.link} />
             )}
             <div>{children}</div>
-        </div>
+        </main>
     );
 };
 

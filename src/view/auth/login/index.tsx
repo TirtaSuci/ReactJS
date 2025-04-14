@@ -4,6 +4,7 @@ import { use, useState } from "react";
 import { useRouter } from "next/router";
 import { sign } from "crypto";
 import { signIn } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 
 const LoginView = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -25,18 +26,18 @@ const LoginView = () => {
                 redirect: false,
                 email: event.target.email.value,
                 password: event.target.password.value,
-                callbackUrl
+                callbackUrl,
             });
             if (!res?.error) {
                 setIsLoading(false);
                 push(callbackUrl);
             } else {
                 setIsLoading(false);
-                setError(typeof res.error === "string" ? res.error : "Login failed.");
+                setError("Email or Password is incorrect.");
             }
         } catch (error: any) {
             setIsLoading(false);
-            setError(error);
+            setError("Email or Password is incorrect.");
         }
     };
 
@@ -48,41 +49,48 @@ const LoginView = () => {
                 {successMessage && (
                     <p className={style.login__form__success}>{successMessage}</p>
                 )}
-                <form onSubmit={handleSubmit} className={style.login__form__content}>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        className={style.login__form__content__input}
-                        type="email"
-                        name="email"
-                        id="email"
-                        required
-                    />
-                    <label htmlFor="password">Password</label>
-                    <div className={style.passwordWrapper}>
+                <div className={style.login__form__background}>
+                    <form onSubmit={handleSubmit} className={style.login__form__content}>
+                        <label htmlFor="email">Email</label>
                         <input
-                            className={style.inputWithToggle}
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            id="password"
+                            className={style.login__form__content__input}
+                            type="email"
+                            name="email"
+                            id="email"
                             required
                         />
+                        <label htmlFor="password">Password</label>
+                        <div className={style.passwordWrapper}>
+                            <input
+                                className={style.inputWithToggle}
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                id="password"
+                                required
+                            />
+                            <button
+                                type="button"
+                                className={style.togglePassword}
+                                onClick={() => setShowPassword((prev) => !prev)}
+                            >
+                                {showPassword ? "🙈" : "👁️"}
+                            </button>
+                        </div>
                         <button
-                            type="button"
-                            className={style.togglePassword}
-                            onClick={() => setShowPassword((prev) => !prev)}
+                            className={style.login__form__content__button}
+                            type="submit"
+                            disabled={isLoading}
                         >
-                            {showPassword ? "🙈" : "👁️"}
+                            {isLoading ? "Logining..." : "Login"}
                         </button>
-                    </div>
-
+                    </form>
                     <button
                         className={style.login__form__content__button}
-                        type="submit"
-                        disabled={isLoading}
+                        onClick={() => signIn("google", { callbackUrl, redirect: false })}
                     >
-                        {isLoading ? "Logining..." : "Login"}
+                        Login with Google
                     </button>
-                </form>
+                </div>
                 <p className={style.login__form__login}>
                     Belum punya akun?{" "}
                     <Link

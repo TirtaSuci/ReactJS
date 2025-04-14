@@ -9,29 +9,10 @@ const ProductPage = () => {
     const { push } = useRouter();
     const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        if (!isLogin) {
-            push("/auth/login");
-        }
-    }, []);
+    const { data, error, isLoading } = useSWR("/api/products", fetcher);
 
-    const { data, error, isLoading } = useSWR(
-        "/api/products",
-        fetcher
-    );
-    console.log("data =", data);
-    console.log("error =", error);
-    console.log("isLoading =", isLoading);
-
-    useEffect(() => {
-        fetch("api/products")
-            .then((res) => res.json())
-            .then((data) => {
-                setProducts(data.data);
-            });
-    }, []);
     return (
-        <ProductView products={isLoading ? [] : data.data}></ProductView>
+        <ProductView products={isLoading ? [] : data?.data} />
     );
 };
 export default ProductPage;

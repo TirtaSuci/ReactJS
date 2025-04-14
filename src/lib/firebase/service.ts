@@ -7,9 +7,12 @@ import {
     query,
     where,
     setDoc,
+    updateDoc,
+    addDoc,
 } from "firebase/firestore/lite";
 import app from "./init";
 import bcrypt from "bcryptjs";
+import { stat } from "fs";
 
 const firestore = getFirestore(app);
 
@@ -27,7 +30,7 @@ export async function retrieveDataById(collectionName: string, id: string) {
     return snapshot.data();
 }
 
-export async function signIn(userdata: { email: string}) {
+export async function signIn(userdata: { email: string }) {
     const q = query(
         collection(firestore, "users"),
         where("email", "==", userdata.email),
@@ -43,6 +46,48 @@ export async function signIn(userdata: { email: string}) {
         return null;
     }
 }
+
+export async function signInWithGoogle(userdata: any, callback: any) {
+    const q = query(
+        collection(firestore, "users"),
+        where("email", "==", userdata.email),
+    );
+    const snapshot = await getDocs(q);
+    const data: any = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+    if (data.length > 0) {
+        userdata.role = data[0].role;
+        await updateDoc(doc(firestore, "users", data[0].id), userdata)
+            .then(() => {
+                callback({
+                    status: true, message: "SignIn with Google successfully.", data: userdata
+                })
+            })
+            .catch(() => {
+                callback({
+                    status: false, message: "SignIn with Google failed."
+                })
+            })
+    } else {
+        userdata.role = "member";
+        await addDoc(collection(firestore, "users"), userdata)
+            .then(() => {
+                callback({
+                    status: true,
+                    message: "SignIn with Google successfully.", data: userdata
+                });
+            })
+            .catch(() => {
+                callback({
+                    status: false,
+                    message: "SignIn with Google failed.",
+                });
+            });
+    }
+}
+
 
 export async function signUp(
     userData: {

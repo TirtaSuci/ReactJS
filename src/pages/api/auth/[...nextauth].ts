@@ -1,7 +1,8 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import { signIn } from "@/lib/firebase/service";
+import { signIn, signInWithGoogle } from "@/lib/firebase/service";
 import { compare } from "bcryptjs";
+import GoogleProvider from "next-auth/providers/google";
 
 const authOptions: NextAuthOptions = {
     session: {
@@ -34,13 +35,39 @@ const authOptions: NextAuthOptions = {
                 }
             },
         }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_OAUTH_CLIENT_ID || "",
+            clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || "",
+        }),
     ],
     callbacks: {
-        jwt({ token, user, account }: any) {
+        async jwt({ token, user, account }: any) {
             if (account?.provider === "credentials") {
                 token.email = user.email;
                 token.username = user.username;
                 token.role = user.role;
+            }
+            if (account?.provider === "google") {
+                const data = {
+                    email: user.email,
+                    username: user.name,
+                    image: user.image,
+                    role: "member",
+                    type: "google",
+                };
+
+                await signInWithGoogle(
+                    data,
+                    (result: { status: boolean; mesaage: string; data: any }) => {
+                        if (result.status) {
+                            token.email = result.data.email;
+                            token.username = result.data.username;
+                            token.image = result.data.image;
+                            token.role = result.data.role;
+                            token.type = result.data.type;
+                        }
+                    }
+                );
             }
             return token;
         },
@@ -48,13 +75,14 @@ const authOptions: NextAuthOptions = {
         async session({ session, token }: any) {
             if ("email" in token) session.user.email = token.email;
             if ("username" in token) session.user.username = token.username;
+            if ("image" in token) session.user.image = token.image;
             if ("role" in token) session.user.role = token.role;
             return session;
         },
     },
     pages: {
         signIn: "/auth/login",
-    }
+    },
 };
 
 export default NextAuth(authOptions);

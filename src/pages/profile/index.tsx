@@ -6,7 +6,7 @@ const ProfilePage = () => {
     return (
         <div>
             <div>Profile Page</div>
-            <div>{session && session.user && session.user.name}</div>
+            <div>{session && (session.user as any).username}</div>
         </div>
 
     )
