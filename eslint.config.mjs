@@ -14,30 +14,29 @@ import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
+import eslintPluginTs from "@typescript-eslint/eslint-plugin";
+import parserTs from "@typescript-eslint/parser";
 
-export default defineConfig([
-  {
-    files: ["**/*.{js,mjs,cjs,ts}"],
-    plugins: { js },
-    extends: ["js/recommended"],
-    languageOptions: {
-      globals: globals.browser,
+export default defineConfig({
+  files: ["**/*.{js,mjs,cjs,ts,tsx}"],
+  languageOptions: {
+    parser: parserTs,
+    parserOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
-    rules: {
-      '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-require-imports': 'warn',
-    },
+    globals: globals.browser,
   },
-  // Tambahan config TypeScript jika perlu
-  {
-    files: ["**/*.ts", "**/*.tsx"],
-    ...tseslint.configs.recommended,
-    rules: {
-      ...tseslint.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-require-imports': 'warn',
-    },
+  plugins: {
+    js,
+    "@typescript-eslint": eslintPluginTs,
   },
-]);
+  // Gabungkan rules JS + TS
+  ...tseslint.configs.recommended,
+  rules: {
+    ...tseslint.configs.recommended.rules,
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-require-imports": "warn",
+  },
+});
