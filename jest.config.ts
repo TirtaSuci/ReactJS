@@ -10,7 +10,7 @@ const config: Config = {
   moduleNameMapper: {
     '\\.(scss|sass|css)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
-  }
+  },
 
   collectCoverage: true,
   collectCoverageFrom: [
