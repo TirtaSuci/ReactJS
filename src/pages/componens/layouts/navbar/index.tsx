@@ -5,7 +5,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const Navbar = (props: { title: string; link: string }) => {
     const { title, link } = props;
     const { data }: any = useSession();
-    console.log("datanya = ",data);
 
     return (
         <div className={styles.navbar}>

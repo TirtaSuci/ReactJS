@@ -2,9 +2,7 @@ import Link from "next/link";
 import style from "./login.module.scss";
 import { use, useState } from "react";
 import { useRouter } from "next/router";
-import { sign } from "crypto";
 import { signIn } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
 
 const LoginView = () => {
     const [isLoading, setIsLoading] = useState(false);

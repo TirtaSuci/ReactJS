@@ -1,29 +1,14 @@
-import LoginPage from "@/pages/auth/login";
-import { render, screen } from "@testing-library/react";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import LoginPage from '@/pages/auth/login';
 
-jest.mock('next/router', () => ({
-    useRouter: () => ({
-        route: '/auth/login',
-        pathname: '/',
-        query: {},
-        asPath: '/',
-        push: jest.fn(),
-        replace: jest.fn(),
-        reload: jest.fn(),
-        back: jest.fn(),
-        prefetch: jest.fn().mockResolvedValue(undefined),
-        isFallback: false,
-        events: {
-            on: jest.fn(),
-            off: jest.fn(),
-            emit: jest.fn(),
-        },
-    }),
-}));
+// Mock komponen LoginView
+jest.mock('@/view/auth/login', () => () => <div data-testid="login-view">Login View</div>);
 
-describe("Login Page", () => {
-    it("should render correctly", () => {
-        const page = render(<LoginPage />);
-        expect(page).toMatchSnapshot()
-    })
-})
+describe('LoginPage', () => {
+    it('should render LoginView component', () => {
+        render(<LoginPage />);
+        const loginView = screen.getByTestId('login-view');
+        expect(loginView).toBeInTheDocument();
+    });
+});

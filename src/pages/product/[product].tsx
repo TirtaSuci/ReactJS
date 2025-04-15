@@ -22,15 +22,15 @@ const DetailProductPage = ({ product }: { product: ProductType }) => {
     );
 }
 
-// export async function getServerSideProps({ params }: { params: { product: string } }) {
-//     const res = await fetch(`http://localhost:3000/api/products/${params.product}`);
-//     const respose = await res.json();
-//     return {
-//         props: {
-//             product : respose.data,
-//         }
-//     };
-// }
+export async function getServerSideProps({ params }: { params: { product: string } }) {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.product}`);
+    const respose = await res.json();
+    return {
+        props: {
+            product: respose.data,
+        }
+    };
+}
 
 // export async function getStaticProps({ params }: { params: { product: string } }) {
 //     const res = await fetch(`http://localhost:3000/api/products/${params.product}`);

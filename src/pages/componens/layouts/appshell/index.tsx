@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { Roboto } from "next/font/google";
 
-// Hindari SSR pada Navbar jika perlu (opsional, untuk menghindari build error)
 const Navbar = dynamic(() => import("../navbar"), { ssr: false });
 
 type AppShellProps = {
