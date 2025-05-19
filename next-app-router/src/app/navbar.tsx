@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Navbar({ children }: { children: React.ReactNode }) {
+export default function Navbar() {
     return (
         <>
             <nav>
@@ -16,7 +16,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                     </Link>
                 </ul>
             </nav>
-            <div>{children}</div>
+            {/* <div>{children}</div> */}
         </>
 
     )
