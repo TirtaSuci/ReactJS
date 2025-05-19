@@ -9,8 +9,8 @@ export default function DashboardLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar></Navbar>
-        <main>{children}</main>
+        <Navbar>Home</Navbar>
+        {children}
       </body>
     </html>
   )
