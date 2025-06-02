@@ -1,10 +1,12 @@
+import Link from "next/link";
+
 export default function ResgisterPage() {
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="bg-white shadow-md border border-gray-200 rounded-lg w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div className="bg-white shadow-md border border-gray-200 rounded-lg w-md p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form className="space-y-6">
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white">Creat an account</h3>
-<div>
+                    <div>
                         <label htmlFor="password" className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                             Your Name
                         </label>
@@ -88,9 +90,9 @@ export default function ResgisterPage() {
 
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                         Already registered{" "}
-                        <a href="/login" className="text-blue-700 hover:underline dark:text-blue-500">
+                        <Link href="/login" className="text-blue-700 hover:underline dark:text-blue-500">
                             Login
-                        </a>
+                        </Link>
                     </div>
                 </form>
             </div>
