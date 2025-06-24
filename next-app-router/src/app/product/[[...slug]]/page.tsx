@@ -12,7 +12,7 @@ export default async function ProductPage(props: ProductPageProps) {
     const { params } = props;
     const products = await getData();
     return (
-        <div className="item-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+        <div className="grid grid-cols-6 gap-4 p-4">
             {/* <h1>{params.slug ? "Detail Product Page " : "Product Page"}</h1> */}
             {products.length > 0 &&
                 products.map((product: any) => (
@@ -22,7 +22,7 @@ export default async function ProductPage(props: ProductPageProps) {
                     >
                         <a href="#">
                             <img
-                                className="p-8 rounded-t-lg object-cover h-100 w-full"
+                                className="p-8 rounded-t-lg object-cover h-50 w-full"
                                 src={product.image}
                                 alt="product image"
                             />
@@ -86,7 +86,7 @@ export default async function ProductPage(props: ProductPageProps) {
                                 </span>
                             </div>
                             <div className="flex items-center justify-between">
-                                <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                                <span className="text-xl font-bold text-gray-900 dark:text-white">
                                     ${product.price}
                                 </span>
                                 <a
