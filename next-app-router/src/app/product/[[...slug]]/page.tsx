@@ -23,7 +23,7 @@ export default async function ProductPage(props: ProductPageProps) {
                         className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
                     >
                         <a href="#">
-                            <Image
+                            <img
                                 className="p-8 rounded-t-lg object-cover h-50 w-full"
                                 src={product.image}
                                 alt="product image"
