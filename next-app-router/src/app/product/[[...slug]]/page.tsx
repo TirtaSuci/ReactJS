@@ -1,18 +1,12 @@
-import Image from "next/image";
+
+import { getData } from "@/app/services/products";
 
 type ProductPageProps = { params: { slug: string[] } };
 
-async function getData() {
-    const res = await fetch("https://fakestoreapi.com/products");
-    if (!res.ok) {
-        throw new Error("Failed to fetch product data");
-    }
-    return res.json();
-}
-
 export default async function ProductPage(props: ProductPageProps) {
     const { params } = props;
-    const products = await getData();
+    const products = await getData("https://fakestoreapi.com/products");
+    console.log(products);
     return (
         <div className="grid grid-cols-6 gap-4 p-4">
             {/* <h1>{params.slug ? "Detail Product Page " : "Product Page"}</h1> */}
