@@ -1,22 +1,22 @@
 
 import { getData } from "@/app/services/products";
+import Link from "next/link";
 
 type ProductPageProps = { params: { slug: string[] } };
 
 export default async function ProductPage(props: ProductPageProps) {
     const { params } = props;
     const products = await getData("https://fakestoreapi.com/products");
-    console.log(products);
     return (
         <div className="grid grid-cols-6 gap-4 p-4">
             {/* <h1>{params.slug ? "Detail Product Page " : "Product Page"}</h1> */}
             {products.length > 0 &&
                 products.map((product: any) => (
-                    <div
+                    <Link href={`/product/detail/${product.id}`}
                         key={product.id}
                         className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
                     >
-                        <a href="#">
+                        <div>
                             <img
                                 className="p-8 rounded-t-lg object-cover h-50 w-full"
                                 src={product.image}
@@ -24,13 +24,13 @@ export default async function ProductPage(props: ProductPageProps) {
                                 width={500}
                                 height={500}
                             />
-                        </a>
+                        </div>
                         <div className="px-5 pb-5">
-                            <a href="#">
+                            <div>
                                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
                                     {product.title}
                                 </h5>
-                            </a>
+                            </div>
                             <div className="flex items-center mt-2.5 mb-5">
                                 <div className="flex items-center space-x-1 rtl:space-x-reverse">
                                     <svg
@@ -95,7 +95,7 @@ export default async function ProductPage(props: ProductPageProps) {
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             {params.slug && (
                 <>
