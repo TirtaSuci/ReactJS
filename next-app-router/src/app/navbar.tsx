@@ -20,6 +20,9 @@ export default function Navbar() {
                         <Link href="/about/profile">
                             <li className={`${pathname === "/about/profile" ? "text-red-500" : ""} mr-4 cursor-pointer`}>Profile</li>
                         </Link>
+                        <Link href="/product">
+                            <li className={`${pathname === "/product" ? "text-red-500" : ""} mr-4 cursor-pointer`}>Product</li>
+                        </Link>
                     </ul>
                 </div>
                 <div>
