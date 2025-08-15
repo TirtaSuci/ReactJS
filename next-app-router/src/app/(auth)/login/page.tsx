@@ -25,7 +25,7 @@ export default function LoginPage() {
                         <label
                             htmlFor="email"
                             className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
-                        >
+                        >g
                             Your email
                         </label>
                         <input
