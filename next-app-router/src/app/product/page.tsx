@@ -1,6 +1,6 @@
-import { getData } from "@/app/services/products";
 import Image from "next/image";
 import Link from "next/link";
+import { getProducts } from "../services/products/products";
 
 type Product = {
     id: number;
@@ -19,7 +19,7 @@ type ProductPageProps = { params: { slug: string[] } };
 
 export default async function ProductPage(props: ProductPageProps) {
     const { params } = props;
-    const products: Product[] = await getData("https://fakestoreapi.com/products");
+    const { data: products } = await getProducts();
     return (
         <div className="flex justify-center">
             <div className="grid grid-cols-6 gap-4 p-4 w-477 ">
