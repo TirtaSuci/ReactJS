@@ -7,7 +7,7 @@ type ProductPageProps = {
 export default async function DetailProductPage({ params }: ProductPageProps) {
     const productId = params.id;
 
-    const data = await getData(`https://fakestoreapi.com/products/${productId}`);
+    const data = await getData(`http://localhost:3000/api/product?id=${productId}`);
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
