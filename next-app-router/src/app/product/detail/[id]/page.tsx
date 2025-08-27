@@ -1,4 +1,4 @@
-import { getData } from "../../../services/products";
+import { getProductById } from "@/app/services/products/products";
 
 type ProductPageProps = {
     params: { id: string };
@@ -7,7 +7,9 @@ type ProductPageProps = {
 export default async function DetailProductPage({ params }: ProductPageProps) {
     const productId = params.id;
 
-    const data = await getData(`http://localhost:3000/api/product?id=${productId}`);
+    // pakai service yang sudah dibuat
+    const response = await getProductById(productId);
+    const data = response.data;
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">

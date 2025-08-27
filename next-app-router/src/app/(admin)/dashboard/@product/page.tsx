@@ -1,23 +1,23 @@
-import Image from "next/image";
+import { getProducts } from "@/app/services/products/products";
 
 type ProductPageProps = { params: { slug: string[] } };
 
-async function getData() {
-    const res = await fetch("https://fakestoreapi.com/products");
-    if (!res.ok) {
-        throw new Error("Failed to fetch product data");
-    }
-    return res.json();
-}
+type Product = {
+    id: string;
+    title: string;
+    image: string;
+    price: number;
+    // tambahkan properti lain sesuai kebutuhan
+};
 
 export default async function ProductPage(props: ProductPageProps) {
     const { params } = props;
-    const products = await getData();
+    const { data: products } = await getProducts();
     return (
-        <div className="grid grid-cols-6 gap-4 p-4">
+        <div className="w-full grid grid-cols-3 gap-4 p-4 rounded-lg">
             {/* <h1>{params.slug ? "Detail Product Page " : "Product Page"}</h1> */}
             {products.length > 0 &&
-                products.map((product: any) => (
+                products.map((product: Product) => (
                     <div
                         key={product.id}
                         className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
