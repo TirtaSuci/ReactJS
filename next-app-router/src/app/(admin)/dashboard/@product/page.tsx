@@ -14,7 +14,7 @@ export default async function ProductPage(props: ProductPageProps) {
     const { params } = props;
     const { data: products } = await getProducts();
     return (
-        <div className="w-full grid grid-cols-3 gap-4 p-4 rounded-lg">
+        <div className="w-full h-100 p-4 grid grid-cols-3 gap-4 rounded-lg bg-gray-300 mr-4">
             {/* <h1>{params.slug ? "Detail Product Page " : "Product Page"}</h1> */}
             {products.length > 0 &&
                 products.map((product: Product) => (

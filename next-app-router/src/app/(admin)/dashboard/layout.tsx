@@ -4,10 +4,13 @@ export default function Dashboard({
     children,
     product,
     analytics,
+    payment
 }: {
     children: React.ReactNode;
     product: React.ReactNode;
     analytics: React.ReactNode;
+    payment: React.ReactNode;
+
 }) {
     return (
         <div className="p-4">
@@ -16,6 +19,7 @@ export default function Dashboard({
                 {product}
                 {analytics}
             </div>
+            {payment}
         </div>
     );
 }
