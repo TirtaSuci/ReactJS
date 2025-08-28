@@ -15,10 +15,8 @@ type Product = {
     };
 };
 
-type ProductPageProps = { params: { slug: string[] } };
 
-export default async function ProductPage(props: ProductPageProps) {
-    const { params } = props;
+export default async function ProductPage() {
     const { data: products } = await getProducts();
     return (
         <div className="flex justify-center">
@@ -108,14 +106,6 @@ export default async function ProductPage(props: ProductPageProps) {
                             </div>
                         </Link>
                     ))}
-                {params.slug && (
-                    <>
-                        <p>Detail Product Page</p>
-                        <p>{params.slug[0]}</p>
-                        <p>{params.slug[1]}</p>
-                        <p>{params.slug[2]}</p>
-                    </>
-                )}
             </div>
         </div>
     );
