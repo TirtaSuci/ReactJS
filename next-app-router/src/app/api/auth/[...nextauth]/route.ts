@@ -20,16 +20,15 @@ export const authOptions: NextAuthOptions = {
                     email: string;
                     password: string;
                 };
-
                 const user: any = {
                     id: "1",
-                    name: "Admin",
+                    name: "Amba",
                     email: "123@gmail.com",
-                    role: "admin",
+                    role: "member",
                     fullname: "Administrator" // ✅ tambahkan biar konsisten
                 };
 
-                if (email === "123@gmail.com" && password === "123456") {
+                if (email === "1@1" && password === "1") {
                     return user;
                 } else {
                     return null;
@@ -58,8 +57,12 @@ export const authOptions: NextAuthOptions = {
             }
             return session;
         },
-    }
-};
+    },
+    pages: {
+        signIn: '/login',
+        signOut: '/login',
+    },
+}
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
