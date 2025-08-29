@@ -18,5 +18,5 @@ export async function GET(request: NextRequest) {
 
     const products = await retrieveData(`products`);
 
-    return NextResponse.json({ status: 200, message: "Success", data : products });
+    return NextResponse.json({ status: 200, message: "Success", data: products });
 }
