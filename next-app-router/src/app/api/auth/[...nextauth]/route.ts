@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
                     id: "1",
                     name: "Amba",
                     email: "123@gmail.com",
-                    role: "member",
+                    role: "admin",
                     fullname: "Administrator" // ✅ tambahkan biar konsisten
                 };
 

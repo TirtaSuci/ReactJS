@@ -25,6 +25,9 @@ export default function Navbar() {
                         <Link href="/product">
                             <li className={`${pathname === "/product" ? "text-red-500" : ""} mr-4 cursor-pointer`}>Product</li>
                         </Link>
+                        <Link href="/dashboard">
+                            <li className={`${pathname === "/dashboard" ? "text-red-500" : ""} mr-4 cursor-pointer`}>Dashboard</li>
+                        </Link>
                     </ul>
                 </div>
                 <div>
