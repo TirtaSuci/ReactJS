@@ -40,11 +40,12 @@ export default function RegisterPage() {
             setError((data && (data.error || data.message)) || "Registration failed");
             setLoading(false);
             return;
-        } else if (data.status === 200) {
+        } else if (data.statusCode === 200) {
+            form.reset();
             setLoading(false);
             setError('');
             alert("Registration successful, please login.");
-            // window.location.href = "/login";
+            window.location.href = "/login";
         }
 
 

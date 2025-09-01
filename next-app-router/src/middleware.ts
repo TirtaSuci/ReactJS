@@ -1,13 +1,10 @@
 import { NextResponse, NextRequest } from 'next/server'
+import withAuth from './app/middlewares/withAuth';
 
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-    const isLogin = true;
-    if (!isLogin) {
-        return NextResponse.redirect(new URL('/login', request.url))
-    }
+export function mainMiddleware(request: NextRequest) {
+    const res = NextResponse.next();
+    return res;
 }
 
-export const config = {
-    matcher: '/about/:path*',
-}
+export default withAuth(mainMiddleware, [`/dashboard`,`/profile`]); // tambahkan path yang butuh auth di array kedua

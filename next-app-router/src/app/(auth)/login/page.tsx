@@ -2,30 +2,45 @@
 
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams  } from "next/navigation";
+import { useState } from "react";
+
 
 export default function LoginPage() {
+    const searchParams = useSearchParams();
     const { push } = useRouter();
-    const handleLogin = async(e: React.FormEvent<HTMLFormElement>) => {
+    const [loading, setLoading] = useState(false);
+    const [isError, setError] = useState(``);
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setError('');
+        setLoading(true);
+        const form = e.currentTarget;
+        const callbackUrl = searchParams.get("callbackUrl") || "/"; 
         try {
             const res = await signIn("credentials", {
                 redirect: false,
                 email: (e.target as any).email.value,
                 password: (e.target as any).password.value,
-                callbackUrl: "/dashboard",
+                callbackUrl,
             })
             if (!res?.error) {
-                push("/dashboard");
+                form.reset();
+                setLoading(false);
+                push(callbackUrl);
             } else {
-                console.log(res.error)
+                setLoading(false);
+                if (res.status === 401) {
+                    setError("Invalid Email or Password");
+                }
             }
         } catch (error) {
-            console.log(error);
+            console.log(`error2 =`, error);
         }
     };
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col justify-center items-center h-screen">
+            {isError !== '' && (<div className="text-red-500 font-bold mb-4">{isError}</div>)}
             <div className="bg-white shadow-md border border-gray-200 rounded-lg w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form className="space-y-6" onSubmit={(e) => handleLogin(e)}>
                     <h3 className="text-xl font-medium text-gray-900 dark:text-white">
@@ -91,10 +106,11 @@ export default function LoginPage() {
                     </div> */}
 
                     <button
+                        disabled={loading}
                         type="submit"
                         className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                        Login to your account
+                        {loading ? 'Loading...' : 'Login'}
                     </button>
 
                     <div className=" text-center w-full text-sm font-medium text-gray-500 dark:text-gray-300">
