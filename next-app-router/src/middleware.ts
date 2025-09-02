@@ -7,4 +7,4 @@ export function mainMiddleware(request: NextRequest) {
     return res;
 }
 
-export default withAuth(mainMiddleware, [`/dashboard`,`/profile`]); // tambahkan path yang butuh auth di array kedua
+export default withAuth(mainMiddleware, [`/dashboard`,`/profile`,`/login`,`/register`]); // tambahkan path yang butuh auth di array pertama/]); // tambahkan path yang butuh auth di array kedua
