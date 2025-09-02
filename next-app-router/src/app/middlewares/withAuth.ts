@@ -20,10 +20,12 @@ export default function withAuth(
                 req,
                 secret: process.env.NEXTAUTH_SECRET,
             });
-            if (!token && authPages.includes(pathname)) {
-                const url = new URL("/login", req.url);
-                url.searchParams.set("callbackUrl", req.url);
-                return NextResponse.redirect(url);
+            if (!token) {
+                if (!authPages.includes(pathname)) {
+                    const url = new URL("/login", req.url);
+                    url.searchParams.set("callbackUrl", req.url);
+                    return NextResponse.redirect(url);
+                }
             }
             if (token) {
                 if (authPages.includes(pathname))

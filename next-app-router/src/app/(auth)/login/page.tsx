@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter, useSearchParams  } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 
@@ -16,7 +16,7 @@ export default function LoginPage() {
         setError('');
         setLoading(true);
         const form = e.currentTarget;
-        const callbackUrl = searchParams.get("callbackUrl") || "/"; 
+        const callbackUrl = searchParams.get("callbackUrl") || "/";
         try {
             const res = await signIn("credentials", {
                 redirect: false,
@@ -112,7 +112,13 @@ export default function LoginPage() {
                     >
                         {loading ? 'Loading...' : 'Login'}
                     </button>
-
+                    <hr />
+                    <button
+                        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        onClick={() => signIn("google", { callbackUrl : "/" ,redirect: false })}
+                    >
+                        Sign in with Google
+                    </button>
                     <div className=" text-center w-full text-sm font-medium text-gray-500 dark:text-gray-300">
                         Not registered?{" "}
                         <Link
