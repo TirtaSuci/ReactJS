@@ -4,6 +4,7 @@ import withAuth from './app/middlewares/withAuth';
 // This function can be marked `async` if using `await` inside
 export function mainMiddleware(request: NextRequest) {
     const res = NextResponse.next();
+    void request;
     return res;
 }
 
